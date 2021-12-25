@@ -31,14 +31,14 @@ public:
 struct MixStack {
   std::vector<std::shared_ptr<MixDataBase>> data;
   std::shared_ptr<MixData<int>> target;
-  MixStack() { target = dat<int>(-1); }
+  inline MixStack() { target = dat<int>(-1); }
   std::vector<std::shared_ptr<MixDataBase>> lp_restart;
   template <typename T> std::shared_ptr<MixData<T>> dat(T val) {
     auto t = std::make_shared<MixData<T>>(val);
     data.push_back(t);
     return t;
   }
-  void in(int x) {
+  inline void in(int x) {
     if (x == *target) {
       for (auto r : lp_restart) {
         r->on() = true;
@@ -47,7 +47,7 @@ struct MixStack {
       lp_restart = {};
     }
   }
-  void goTo(int x) {
+  inline void goTo(int x) {
     if (!target->on())
       return;
     if (*target != -1)
@@ -56,21 +56,21 @@ struct MixStack {
     lp_restart = of(true);
     force(false);
   }
-  void swap() {
+  inline void swap() {
     if (!target->on())
       return;
     for (auto d : data) {
       d->swap();
     }
   }
-  void force(bool x) {
+  inline void force(bool x) {
     if (!target->on())
       return;
     for (auto d : data) {
       d->on() = x;
     }
   }
-  std::vector<std::shared_ptr<MixDataBase>> of(bool x) {
+  inline std::vector<std::shared_ptr<MixDataBase>> of(bool x) {
     if (!target->on())
       return {};
     std::vector<std::shared_ptr<MixDataBase>> r;
@@ -82,12 +82,12 @@ struct MixStack {
 };
 struct MixIf {
   std::vector<std::shared_ptr<MixDataBase>> restore;
-  MixIf(MixStack &s, bool b) : restore(s.of(true)) {
+  inline MixIf(MixStack &s, bool b) : restore(s.of(true)) {
     if (!b) {
       s.force(false);
     }
   }
-  void done(MixStack &s, bool b) {
+  inline void done(MixStack &s, bool b) {
     if (!b) {
       for (auto r : restore) {
         r->on() = true;
