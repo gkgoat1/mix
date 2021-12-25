@@ -1,1 +1,1 @@
-cc_library(name = "mix",hdrs = ["mix.hpp"],visbility = "PUBLIC")
+cc_library(name = "mix",hdrs = ["mix.hpp"],visibility = "PUBLIC")

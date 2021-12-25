@@ -1,1 +1,7 @@
+project(Mix  LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_library(mix mix.hpp)
+set_target_properties(mix PROPERTIES LINKER_LANGUAGE CXX)
+add_executable(example example.cpp)
+target_link_libraries(example mix)

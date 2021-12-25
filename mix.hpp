@@ -20,11 +20,12 @@ template <typename T> class MixData : public MixDataBase {
 public:
   MixData(T v) : vals{v, v}, on_{true} {}
   operator T &() { return vals[on_]; };
+  T& get() {return vals[on_];}
   bool &on() override { return const_cast<bool &>(on_); }
   void swap() override { on() = !on(); }
   void output(std::ostream &o) override {
     if (on())
-      o << *this;
+      o << get();
   }
 };
 

@@ -1,1 +1,2 @@
-cc_library(name = "mix",hdrs = ["mix.hpp"],visbility = ["//visibility:public"])
+cc_library(name = "mix",hdrs = ["mix.hpp"],visibility = ["//visibility:public"])
+cc_binary(name = "example",srcs = ["example.cpp"],deps = [":mix"])
